@@ -1,11 +1,12 @@
 # showbaseline
 This is small script \ container \ POD will get BaseLine from Dynatrace and show it dashboard level
+
 default it is look likes:
-![Default looks](https://github.com/43034r/showbaseline/raw/main/default.JPG)
+![Default looks](https://github.com/43034r/showbaseline/raw/main/img/default.JPG)
 How it is look likes on dashboard:
-![Count looks](https://github.com/43034r/showbaseline/raw/main/response.JPG)
+![Count looks](https://github.com/43034r/showbaseline/raw/main/img/response.JPG)
 How look likes prediction of load (count) of the service
-![Count looks](https://github.com/43034r/showbaseline/raw/main/count.JPG)
+![Count looks](https://github.com/43034r/showbaseline/raw/main/img/count.JPG)
 
 This python script use predict=true More - https://www.dynatrace.com/news/blog/how-to-ask-your-monitoring-system-about-the-future/
 
