@@ -33,59 +33,7 @@ YOUR_A_SEND_MINMAX = 1 # send min\max or only median - 0 - no, 1 - yes
 
 YOUR_A_SEND_COUNT = 1 # send baseline - count of requests or not - 0 - no , 1 - yes
 
-=== You need create metrics:
 
-''' metric creating - custom:service.resp0nsetime.baseline
-
-{
-
-  "displayName": "service responsetime baseline",
-
-  "unit": "MilliSecond",
-
-  "dimensions": [
-
-    "service"
-
-  ],
-
-  "types": [
-
-    "baseline"
-
-  ]
-
-}
-
-''' metric creating - custom:service.requests.baseline
-
-{
-
-  "displayName": "Service requests per minute baseline",
-
-  "dimensions": [
-
-    "service",
-
-    "agr"
-
-  ],
-
-  "aggregationTypes": [
-
-    "COUNT"
-
-  ],
-
-  "unit": "Count (count)",
-
-  "types": [
-
-    "baseline"
-
-  ]
-
-}
 
 
 
