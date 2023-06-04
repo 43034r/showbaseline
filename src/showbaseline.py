@@ -158,7 +158,10 @@ def get_data_svc():
 
 print ("baseline-detector: *** INFO -- starting...")
 
-main_work()
+try:
+	main_work()
+except:
+	print ("baseline-detector: *** Error 1 main_work")
 
 print ("baseline-detector: *** INFO - Updating tasks...")
 schedule.every(YOUR_UPDATE_INTERVAL).minutes.do(main_work)
