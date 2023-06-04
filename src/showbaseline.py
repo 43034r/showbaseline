@@ -26,10 +26,10 @@ def main_work():
 	except:
 		print ("baseline-detector: *** Error")
 
-def printl(text, *args):
+def print(text, *args):
 	if int(YOUR_LOG_LEVEL) >= 2: print (text, args)
 
-def printll(text, *args):
+def print(text, *args):
 	if YOUR_LOG_LEVEL == 1: print (text, args)
 
 def send_to_dyna(timeseriesId, value, svc_to_send, agr, ttime):
@@ -65,7 +65,7 @@ def send_to_dyna(timeseriesId, value, svc_to_send, agr, ttime):
 		print(m);
 
 def get_data(serviceid):
-	printl ("baseline-detector *** DEBUG start get_data for --> ", serviceid)
+	print ("baseline-detector *** DEBUG start get_data for --> ", serviceid)
 	
 	firsttime=int(time.time()) 
 	secondtime=int(time.time() + 1800)
@@ -78,13 +78,13 @@ def get_data(serviceid):
 		print(m)
 		print(firsttime,"---->",secondtime)
 	todo = json.loads(r.text)
-	printl (todo["dataResult"]["dataPoints"][serviceid])
+	print (todo["dataResult"]["dataPoints"][serviceid])
 	for tstring in todo["dataResult"]["dataPoints"][serviceid]:
 		threads2 = []
 		threads3 = []
 		threads4 = []
 		try:
-			printll("baseline-detector: *** INFO - thread for ", tstring)
+			print("baseline-detector: *** INFO - thread for ", tstring)
 			thread2 = threading.Thread(target=send_to_dyna, args=('custom:service.resp0nsetime.baseline', tstring[1], serviceid, 'MED', tstring[0],))
 			threads2.append(thread2)
 			if YOUR_A_SEND_MINMAX == 1:
@@ -101,11 +101,11 @@ def get_data(serviceid):
 			print ("baseline-detector: *** Error get_send_to_dyna() - ", serviceid)
 		except:
 			print ("baseline-detector: *** Error get_send_to_dyna() - ", serviceid)
-		printll("baseline-detector: *** INFO - stop get_data_svc")
+		print("baseline-detector: *** INFO - stop get_data_svc")
 
 
 def get_data_rpm(serviceid):
-	printl ("baseline-detector *** DEBUG start get_data_rpm for --> ", serviceid)
+	print ("baseline-detector *** DEBUG start get_data_rpm for --> ", serviceid)
 	
 	firsttime=int(time.time()) 
 	secondtime=int(time.time() + 1800)
@@ -118,13 +118,13 @@ def get_data_rpm(serviceid):
 		print(m)
 		print(firsttime,"---->",secondtime)
 	todo = json.loads(r.text)
-	printl (todo["dataResult"]["dataPoints"][serviceid])
+	print (todo["dataResult"]["dataPoints"][serviceid])
 	for tstring in todo["dataResult"]["dataPoints"][serviceid]:
 		threads2 = []
 		threads3 = []
 		threads4 = []
 		try:
-			printll("baseline-detector: *** INFO - thread for ", tstring)
+			print("baseline-detector: *** INFO - thread for ", tstring)
 			thread2 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[1], serviceid, 'AVG', tstring[0],))
 			threads2.append(thread2)
 			if YOUR_A_SEND_MINMAX == 1:
@@ -141,14 +141,14 @@ def get_data_rpm(serviceid):
 			print ("baseline-detector: *** Error get_send_to_dyna() - ", serviceid)
 		except:
 			print ("baseline-detector: *** Error get_send_to_dyna() - ", serviceid)
-		printll("baseline-detector: *** INFO - stop get_data_svc")
+		print("baseline-detector: *** INFO - stop get_data_svc")
 
 def get_data_svc():
-	printll("baseline-detector: *** INFO - Start get_data_svc")
+	print("baseline-detector: *** INFO - Start get_data_svc")
 	try:
 		threads = []
 		for element in YOUR_SVC_LIST:
-			printll("baseline-detector: *** INFO - thread for ", element)
+			print("baseline-detector: *** INFO - thread for ", element)
 			thread = threading.Thread(target=get_data, args=(element,))
 			threads.append(thread)
 			thread.start()
@@ -159,14 +159,7 @@ def get_data_svc():
 	except Exception as e: print(e)
 	except:
 		print ("baseline-detector: *** Error get_data_svc()")
-	printll("baseline-detector: *** INFO - stop get_data_svc")
-
-
-def schedule_next_run():
-	time_span = random.randint(1, 15)
-	schedule.clear()
-	printll(f'"baseline-detector: Scheduled in {time_span} minutes')
-	schedule.every(time_span).minutes.do(main_work)
+	print("baseline-detector: *** INFO - stop get_data_svc")
 
 
 print ("baseline-detector: *** INFO -- starting...")
@@ -175,7 +168,7 @@ main_work()
 
 print ("baseline-detector: *** INFO - Updating tasks...")
 schedule.every(YOUR_UPDATE_INTERVAL).minutes.do(main_work)
-printll(f'baseline-detector: Scheduled in {YOUR_UPDATE_INTERVAL} minutes for {YOUR_SVC_LIST}')
+print(f'baseline-detector: Scheduled in {YOUR_UPDATE_INTERVAL} minutes for {YOUR_SVC_LIST}')
 
 while True:
     schedule.run_pending()
