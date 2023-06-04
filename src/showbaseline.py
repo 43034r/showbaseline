@@ -16,7 +16,9 @@ YOUR_LOG_LEVEL:int = os.getenv('YOUR_LOG_LEVEL', 2)
 YOUR_UPDATE_INTERVAL:int = os.getenv('YOUR_UPDATE_INTERVAL', 5) # in minutes
 YOUR_A_SEND_MINMAX:int = os.getenv('YOUR_A_SEND_MINMAX', 0) # send min\max or only median
 YOUR_A_SEND_COUNT:int = os.getenv('YOUR_A_SEND_COUNT', 0)  # send count or not 0 - not, 1 - yes.
-                                  
+YOUR_SVC_LIST = YOUR_SVC_LISTSTR.split(',')
+
+
 def main_work():
 	try:
 		print("baseline-detector: Start run - main work")
