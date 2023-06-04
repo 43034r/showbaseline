@@ -1,5 +1,6 @@
 # showbaseline
 This is small script \ container \ POD will get BaseLine from Dynatrace and show it dashboard level
+
 Important! For work wait an hour after custom metric creation 
 
 default it is look likes:
@@ -35,30 +36,55 @@ YOUR_A_SEND_COUNT = 1 # send baseline - count of requests or not - 0 - no , 1 - 
 === You need create metrics:
 
 ''' metric creating - custom:service.resp0nsetime.baseline
+
 {
+
   "displayName": "service responsetime baseline",
+
   "unit": "MilliSecond",
+
   "dimensions": [
+
     "service"
+
   ],
+
   "types": [
+
     "baseline"
+
   ]
+
 }
+
 ''' metric creating - custom:service.requests.baseline
+
 {
+
   "displayName": "Service requests per minute baseline",
+
   "dimensions": [
+
     "service",
+
     "agr"
+
   ],
+
   "aggregationTypes": [
+
     "COUNT"
+
   ],
+
   "unit": "Count (count)",
+
   "types": [
+
     "baseline"
+
   ]
+
 }
 
 
