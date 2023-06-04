@@ -1,5 +1,5 @@
 # showbaseline
-This is small script \ container \ POD will get BaseLine from Dynatrace and show it dashboard level
+This is small script \ container \ POD will get BaseLine from Dynatrace and show it on dashboard level
 
 Important! For work wait an hour after custom metric creation 
 
