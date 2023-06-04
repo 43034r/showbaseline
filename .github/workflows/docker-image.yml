@@ -24,4 +24,5 @@ jobs:
       run: docker build . --file Dockerfile --tag 43034r/showbaseline:$(date +%s)
       
     - name: Docker Push
-      run: docker push 43034r/showbaseline
+      run: docker push 43034r/showbaseline:latest
+     
