@@ -1,12 +1,10 @@
 import json
-import datetime
 import os
 import datetime
 import schedule
 import time
 import requests
 import random
-from datetime import datetime
 import threading
 
 YOUR_DT_API_TOKEN = os.getenv('YOUR_DT_API_TOKEN', 'dt0c01.X.X')
