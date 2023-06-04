@@ -12,7 +12,7 @@ import threading
 YOUR_DT_API_TOKEN = os.getenv('YOUR_DT_API_TOKEN', 'dt0c01.X.X')
 YOUR_DT_API_URL = os.getenv('YOUR_DT_API_URL', 'https://provide-API-URL-WITH-END/api/v1')
 YOUR_SVC_LISTSTR = os.getenv( 'YOUR_SVC_LIST', "SERVICE-F531D98ABDEE9F9D, SERVICE-D2E55F5D48FF41A1")
-YOUR_LOG_LEVEL:int = os.getenv('YOUR_LOG_LEVEL', 2) 
+YOUR_LOG_LEVEL:int = os.getenv('YOUR_LOG_LEVEL', 0) 
 YOUR_UPDATE_INTERVAL:int = os.getenv('YOUR_UPDATE_INTERVAL', 5) # in minutes
 YOUR_A_SEND_MINMAX:int = os.getenv('YOUR_A_SEND_MINMAX', 0) # send min\max or only median
 YOUR_A_SEND_COUNT:int = os.getenv('YOUR_A_SEND_COUNT', 0)  # send count or not 0 - not, 1 - yes.
@@ -25,12 +25,6 @@ def main_work():
 		get_data_svc()
 	except:
 		print ("baseline-detector: *** Error")
-
-def print(text, *args):
-	if int(YOUR_LOG_LEVEL) >= 2: print (text, args)
-
-def print(text, *args):
-	if YOUR_LOG_LEVEL == 1: print (text, args)
 
 def send_to_dyna(timeseriesId, value, svc_to_send, agr, ttime):
 	payload = {
