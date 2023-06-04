@@ -1,0 +1,27 @@
+=== You need create metrics:
+metric creating - custom:service.resp0nsetime.baseline
+{
+  "displayName": "service responsetime baseline",
+  "unit": "MilliSecond",
+  "dimensions": [
+    "service"
+  ],
+  "types": [
+    "baseline"
+  ]
+}
+metric creating - custom:service.requests.baseline
+{
+  "displayName": "Service requests per minute baseline",
+  "dimensions": [
+    "service",
+    "agr"
+  ],
+  "aggregationTypes": [
+    "COUNT"
+  ],
+  "unit": "Count (count)",
+  "types": [
+    "baseline"
+  ]
+}
