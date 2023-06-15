@@ -34,6 +34,6 @@ YOUR_A_SEND_MINMAX = 1 # send min\max or only median - 0 - no, 1 - yes
 YOUR_A_SEND_COUNT = 1 # send baseline - count of requests or not - 0 - no , 1 - yes
 
 
-
+=== ShowBaseLine.json substitute service ID (SERVICE-F531D98ABDEE9F9D) your service ID.
 
 
