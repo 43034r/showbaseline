@@ -78,7 +78,7 @@ spec:
               key: token
           value: ""
         - name: DT_API_URL
-          value: "https://saas.ruscomtech.ru/e/73def430-3ef8-4c9c-bbaf-bb1f62b1b07d/api/v1"
+          value: "https://someapiurl/api/v1"
         - name: A_SEND_MINMAX
           value: "1"
         - name: A_SEND_COUNT
