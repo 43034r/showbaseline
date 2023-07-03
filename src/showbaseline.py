@@ -61,7 +61,7 @@ def get_data(serviceid):
 	
 	firsttime=int(time.time()) 
 	secondtime=int(time.time() + 1800)
-	r = requests.get(DT_API_URL + '/timeseries/com.dynatrace.builtin%3Aservice.responsetime?includeData=true&aggregationType=MEDIAN&startTimestamp=' + str(firsttime) + '&endTimestamp=' + str(secondtime) + '&predict=true&relativeTime=30mins&entity=' + serviceid + '&Api-Token=' + YOUR_DT_API_TOKEN, verify=False);
+	r = requests.get(DT_API_URL + '/timeseries/com.dynatrace.builtin%3Aservice.responsetime?includeData=true&aggregationType=MEDIAN&startTimestamp=' + str(firsttime) + '&endTimestamp=' + str(secondtime) + '&predict=true&relativeTime=30mins&entity=' + serviceid + '&Api-Token=' + DT_API_TOKEN, verify=False);
 	m = r.text
 	if LOG_LEVEL == 0:
 		print ("baseline-detector *** DEBUG Response code -->  "  , end='')
