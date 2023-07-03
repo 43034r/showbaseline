@@ -62,8 +62,6 @@ spec:
         env:
         - name: YOUR_SVC_LIST
           value: "SERVICE-F531D98ABDEE9F9D"
-        - name: YOUR_SVC_LIST
-          value: "SERVICE-F531D98ABDEE9F9D"
         - name: YOUR_DT_API_TOKEN
           value: "dt0c.............................................................................E"
         - name: YOUR_DT_API_URL
