@@ -7,14 +7,14 @@ import requests
 import random
 import threading
 
-YOUR_DT_API_TOKEN = os.getenv('YOUR_DT_API_TOKEN', 'dt0c01.X.X')
-YOUR_DT_API_URL = os.getenv('YOUR_DT_API_URL', 'https://provide-API-URL-WITH-END/api/v1')
-YOUR_SVC_LISTSTR = os.getenv( 'YOUR_SVC_LIST', "SERVICE-F531D98ABDEE9F9D, SERVICE-D2E55F5D48FF41A1")
-YOUR_LOG_LEVEL:int = os.getenv('YOUR_LOG_LEVEL', 0) 
-YOUR_UPDATE_INTERVAL:int = os.getenv('YOUR_UPDATE_INTERVAL', 5) # in minutes
-YOUR_A_SEND_MINMAX:int = os.getenv('YOUR_A_SEND_MINMAX', 0) # send min\max or only median
-YOUR_A_SEND_COUNT:int = os.getenv('YOUR_A_SEND_COUNT', 0)  # send count or not 0 - not, 1 - yes.
-YOUR_SVC_LIST = YOUR_SVC_LISTSTR.split(',')
+DT_API_TOKEN = os.getenv('DT_API_TOKEN', 'dt0c01.X.X')
+DT_API_URL = os.getenv('DT_API_URL', 'https://provide-API-URL-WITH-END/api/v1')
+SVC_LISTSTR = os.getenv( 'SVC_LIST', "SERVICE-F531D98ABDEE9F9D, SERVICE-D2E55F5D48FF41A1")
+LOG_LEVEL:int = os.getenv('LOG_LEVEL', 0) 
+UPDATE_INTERVAL:int = os.getenv('UPDATE_INTERVAL', 5) # in minutes
+A_SEND_MINMAX:int = os.getenv('A_SEND_MINMAX', 0) # send min\max or only median
+A_SEND_COUNT:int = os.getenv('A_SEND_COUNT', 0)  # send count or not 0 - not, 1 - yes.
+SVC_LIST = SVC_LISTSTR.split(',')
 
 
 def main_work():
@@ -44,13 +44,13 @@ def send_to_dyna(timeseriesId, value, svc_to_send, agr, ttime):
 			}
 	
 	if (value < 0): raise ValueError(f"baseline-detector *** Error {value} < 0")
-	if YOUR_LOG_LEVEL == 0: 
+	if LOG_LEVEL == 0: 
 		print ("baseline-detector *** DEBUG start PayLoad -->  ")
 		print (payload)
 		print ("baseline-detector *** DEBUG stop PayLoad -->  ")
-	r = requests.post(YOUR_DT_API_URL + '/entity/infrastructure/custom/baseline-detector?Api-Token=' + YOUR_DT_API_TOKEN, json=payload, verify=False);
+	r = requests.post(DT_API_URL + '/entity/infrastructure/custom/baseline-detector?Api-Token=' + DT_API_TOKEN, json=payload, verify=False);
 	m = r.text
-	if YOUR_LOG_LEVEL == 0: 
+	if LOG_LEVEL == 0: 
 		print ("baseline-detector *** DEBUG Response code -->  "  , end='')
 		print(r);
 		print ("baseline-detector *** DEBUG Response -->  ", end='')
@@ -61,9 +61,9 @@ def get_data(serviceid):
 	
 	firsttime=int(time.time()) 
 	secondtime=int(time.time() + 1800)
-	r = requests.get(YOUR_DT_API_URL + '/timeseries/com.dynatrace.builtin%3Aservice.responsetime?includeData=true&aggregationType=MEDIAN&startTimestamp=' + str(firsttime) + '&endTimestamp=' + str(secondtime) + '&predict=true&relativeTime=30mins&entity=' + serviceid + '&Api-Token=' + YOUR_DT_API_TOKEN, verify=False);
+	r = requests.get(DT_API_URL + '/timeseries/com.dynatrace.builtin%3Aservice.responsetime?includeData=true&aggregationType=MEDIAN&startTimestamp=' + str(firsttime) + '&endTimestamp=' + str(secondtime) + '&predict=true&relativeTime=30mins&entity=' + serviceid + '&Api-Token=' + YOUR_DT_API_TOKEN, verify=False);
 	m = r.text
-	if YOUR_LOG_LEVEL == 0:
+	if LOG_LEVEL == 0:
 		print ("baseline-detector *** DEBUG Response code -->  "  , end='')
 		print(r)
 		print ("baseline-detector *** DEBUG response -->  ", end='')
@@ -79,13 +79,13 @@ def get_data(serviceid):
 			print("baseline-detector: *** INFO - thread for ", tstring)
 			thread2 = threading.Thread(target=send_to_dyna, args=('custom:service.resp0nsetime.baseline', tstring[1], serviceid, 'MED', tstring[0],))
 			threads2.append(thread2)
-			if YOUR_A_SEND_MINMAX == 1:
+			if A_SEND_MINMAX == 1:
 				thread3 = threading.Thread(target=send_to_dyna, args=('custom:service.resp0nsetime.baseline', tstring[2], serviceid, 'MIN', tstring[0],))
 				threads3.append(thread3)
 				thread4 = threading.Thread(target=send_to_dyna, args=('custom:service.resp0nsetime.baseline', tstring[3], serviceid, 'MAX', tstring[0],))
 				threads4.append(thread4)
 			thread2.start()
-			if YOUR_A_SEND_MINMAX == 1:	
+			if A_SEND_MINMAX == 1:	
 				thread3.start()
 				thread4.start()
 		except Exception as e: 
@@ -101,9 +101,9 @@ def get_data_rpm(serviceid):
 	
 	firsttime=int(time.time()) 
 	secondtime=int(time.time() + 1800)
-	r = requests.get(YOUR_DT_API_URL + '/timeseries/com.dynatrace.builtin%3Aservice.requestspermin?includeData=true&aggregationType=COUNT&startTimestamp=' + str(firsttime) + '&endTimestamp=' + str(secondtime) + '&predict=true&relativeTime=30mins&entity=' + serviceid + '&Api-Token=' + YOUR_DT_API_TOKEN, verify=False);
+	r = requests.get(DT_API_URL + '/timeseries/com.dynatrace.builtin%3Aservice.requestspermin?includeData=true&aggregationType=COUNT&startTimestamp=' + str(firsttime) + '&endTimestamp=' + str(secondtime) + '&predict=true&relativeTime=30mins&entity=' + serviceid + '&Api-Token=' + YOUR_DT_API_TOKEN, verify=False);
 	m = r.text
-	if YOUR_LOG_LEVEL == 0:
+	if LOG_LEVEL == 0:
 		print ("baseline-detector *** DEBUG Response code -->  "  , end='')
 		print(r)
 		print ("baseline-detector *** DEBUG response -->  ", end='')
@@ -119,13 +119,13 @@ def get_data_rpm(serviceid):
 			print("baseline-detector: *** INFO - thread for ", tstring)
 			thread2 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[1], serviceid, 'AVG', tstring[0],))
 			threads2.append(thread2)
-			if YOUR_A_SEND_MINMAX == 1:
+			if A_SEND_MINMAX == 1:
 				thread3 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[2], serviceid, 'MIN', tstring[0],))
 				threads3.append(thread3)
 				thread4 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[3], serviceid, 'MAX', tstring[0],))
 				threads4.append(thread4)
 			thread2.start()
-			if YOUR_A_SEND_MINMAX == 1:	
+			if A_SEND_MINMAX == 1:	
 				thread3.start()
 				thread4.start()
 		except Exception as e: 
@@ -139,12 +139,12 @@ def get_data_svc():
 	print("baseline-detector: *** INFO - Start get_data_svc")
 	try:
 		threads = []
-		for element in YOUR_SVC_LIST:
+		for element in SVC_LIST:
 			print("baseline-detector: *** INFO - thread for ", element)
 			thread = threading.Thread(target=get_data, args=(element,))
 			threads.append(thread)
 			thread.start()
-			if YOUR_A_SEND_COUNT == 1:
+			if A_SEND_COUNT == 1:
 				thread = threading.Thread(target=get_data_rpm, args=(element,))
 				threads.append(thread)
 			thread.start()
@@ -162,8 +162,8 @@ except:
 	print ("baseline-detector: *** Error 1 main_work")
 
 print ("baseline-detector: *** INFO - Updating tasks...")
-schedule.every(YOUR_UPDATE_INTERVAL).minutes.do(main_work)
-print(f'baseline-detector: Scheduled in {YOUR_UPDATE_INTERVAL} minutes for {YOUR_SVC_LIST}')
+schedule.every(UPDATE_INTERVAL).minutes.do(main_work)
+print(f'baseline-detector: Scheduled in {UPDATE_INTERVAL} minutes for {SVC_LIST}')
 
 while True:
     schedule.run_pending()
