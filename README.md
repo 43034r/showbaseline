@@ -36,4 +36,45 @@ YOUR_A_SEND_COUNT = 1 # send baseline - count of requests or not - 0 - no , 1 - 
 
 === ShowBaseLine.json substitute service ID (SERVICE-F531D98ABDEE9F9D) your service ID.
 
+#Example - yaml - if you want to start container in k8s
 
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: showbaseline
+  name: showbaseline
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: showbaseline
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: showbaseline
+    spec:
+      containers:
+      - image: docker.io/43034r/showbaseline:latest
+        env:
+        - name: YOUR_SVC_LIST
+          value: "SERVICE-F531D98ABDEE9F9D"
+        - name: YOUR_SVC_LIST
+          value: "SERVICE-F531D98ABDEE9F9D"
+        - name: YOUR_DT_API_TOKEN
+          value: "dt0c.............................................................................E"
+        - name: YOUR_DT_API_URL
+          value: "https://somewhereonmars/api/v1"
+        - name: YOUR_A_SEND_MINMAX
+          value: "0"
+        - name: YOUR_A_SEND_COUNT
+          value: "1"
+        name: showbaseline
+```
+
+
+
+![Default looks](https://github.com/43034r/showbaseline/raw/main/img/ex1.JPG)
