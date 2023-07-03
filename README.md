@@ -39,6 +39,15 @@ YOUR_A_SEND_COUNT = 1 # send baseline - count of requests or not - 0 - no , 1 - 
 #Example - yaml - if you want to start container in k8s
 
 ```
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tokensecret
+  namespace: dev
+type: Opaque
+stringData:
+  token: "dt0c01.xxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -60,16 +69,22 @@ spec:
       containers:
       - image: docker.io/43034r/showbaseline:latest
         env:
-        - name: YOUR_SVC_LIST
+        - name: SVC_LIST
           value: "SERVICE-F531D98ABDEE9F9D"
-        - name: YOUR_DT_API_TOKEN
-          value: "dt0c.............................................................................E"
-        - name: YOUR_DT_API_URL
-          value: "https://somewhereonmars/api/v1"
-        - name: YOUR_A_SEND_MINMAX
-          value: "0"
-        - name: YOUR_A_SEND_COUNT
+        - name: DT_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: tokensecret
+              key: token
+          value: ""
+        - name: DT_API_URL
+          value: "https://saas.ruscomtech.ru/e/73def430-3ef8-4c9c-bbaf-bb1f62b1b07d/api/v1"
+        - name: A_SEND_MINMAX
           value: "1"
+        - name: A_SEND_COUNT
+          value: "1"
+        - name: LOG_LEVEL
+          value: "0"
         name: showbaseline
 ```
 
