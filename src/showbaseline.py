@@ -57,6 +57,7 @@ def send_to_dyna(timeseriesId, value, svc_to_send, agr, ttime):
 		print(m)
 
 def get_data(serviceid):
+	global A_SEND_MINMAX
 	print ("baseline-detector *** DEBUG start get_data for --> ", serviceid)
 	
 	firsttime=int(time.time()) 
@@ -97,6 +98,7 @@ def get_data(serviceid):
 
 
 def get_data_rpm(serviceid):
+	global A_SEND_MINMAX
 	print ("baseline-detector *** DEBUG start get_data_rpm for --> ", serviceid)
 	
 	firsttime=int(time.time()) 
@@ -112,22 +114,22 @@ def get_data_rpm(serviceid):
 	todo = json.loads(r.text)
 	print (todo["dataResult"]["dataPoints"][serviceid])
 	for tstring in todo["dataResult"]["dataPoints"][serviceid]:
-		threads22 = []
-		threads33 = []
-		threads44 = []
+		threads2 = []
+		threads3 = []
+		threads4 = []
 		try:
 			print("baseline-detector: *** INFO - thread for ", tstring)
-			thread22 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[1], serviceid, 'AVG', tstring[0],))
-			threads22.append(thread22)
+			thread2 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[1], serviceid, 'AVG', tstring[0],))
+			threads2.append(thread2)
 			if A_SEND_MINMAX == 1:
-				thread33 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[2], serviceid, 'MIN', tstring[0],))
-				threads33.append(thread33)
-				thread44 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[3], serviceid, 'MAX', tstring[0],))
-				threads44.append(thread44)
-			thread22.start()
+				thread3 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[2], serviceid, 'MIN', tstring[0],))
+				threads3.append(thread3)
+				thread4 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[3], serviceid, 'MAX', tstring[0],))
+				threads4.append(thread4)
+			thread2.start()
 			if A_SEND_MINMAX == 1:	
-				thread33.start()
-				thread44.start()
+				thread3.start()
+				thread4.start()
 		except Exception as e: 
 			print(e)
 			print ("baseline-detector: *** Error get_send_to_dyna() - ", serviceid)
@@ -136,6 +138,7 @@ def get_data_rpm(serviceid):
 		print("baseline-detector: *** INFO - stop get_data_svc")
 
 def get_data_svc():
+	global A_SEND_COUNT
 	print("baseline-detector: *** INFO - Start get_data_svc")
 	try:
 		threads = []
