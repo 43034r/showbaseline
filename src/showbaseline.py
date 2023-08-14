@@ -73,18 +73,16 @@ def get_data(serviceid):
 	todo = json.loads(r.text)
 	print (todo["dataResult"]["dataPoints"][serviceid])
 	for tstring in todo["dataResult"]["dataPoints"][serviceid]:
-		threads2 = []
 		threads3 = []
-		threads4 = []
 		try:
 			print("baseline-detector: *** INFO - thread for ", tstring)
 			thread2 = threading.Thread(target=send_to_dyna, args=('custom:service.resp0nsetime.baseline', tstring[1], serviceid, 'MED', tstring[0],))
-			threads2.append(thread2)
+			threads3.append(thread2)
 			if A_SEND_MINMAX == 1:
 				thread3 = threading.Thread(target=send_to_dyna, args=('custom:service.resp0nsetime.baseline', tstring[2], serviceid, 'MIN', tstring[0],))
 				threads3.append(thread3)
 				thread4 = threading.Thread(target=send_to_dyna, args=('custom:service.resp0nsetime.baseline', tstring[3], serviceid, 'MAX', tstring[0],))
-				threads4.append(thread4)
+				threads3.append(thread4)
 			thread2.start()
 			if A_SEND_MINMAX == 1:	
 				thread3.start()
@@ -115,17 +113,15 @@ def get_data_rpm(serviceid):
 	print (todo["dataResult"]["dataPoints"][serviceid])
 	for tstring in todo["dataResult"]["dataPoints"][serviceid]:
 		threads2 = []
-		threads3 = []
-		threads4 = []
 		try:
 			print("baseline-detector: *** INFO - thread for ", tstring)
 			thread2 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[1], serviceid, 'AVG', tstring[0],))
 			threads2.append(thread2)
 			if A_SEND_MINMAX == 1:
 				thread3 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[2], serviceid, 'MIN', tstring[0],))
-				threads3.append(thread3)
+				threads2.append(thread3)
 				thread4 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[3], serviceid, 'MAX', tstring[0],))
-				threads4.append(thread4)
+				threads2.append(thread4)
 			thread2.start()
 			if A_SEND_MINMAX == 1:	
 				thread3.start()
@@ -146,10 +142,11 @@ def get_data_svc():
 			print("baseline-detector: *** INFO - thread for ", element)
 			thread = threading.Thread(target=get_data, args=(element,))
 			threads.append(thread)
+			thread.start()
 #			if A_SEND_COUNT == 1:
 			thread_rpm = threading.Thread(target=get_data_rpm, args=(element,))
 			threads.append(thread_rpm)
-			threads.start()
+			thread_rpm.start()
 	except Exception as e: print(e)
 	except:
 		print ("baseline-detector: *** Error get_data_svc()")
