@@ -148,7 +148,11 @@ def get_data_svc():
 			print("baseline-detector: *** A_SEND_COUNT", A_SEND_COUNT)
 			print("baseline-detector: *** A_SEND_COUNT", A_SEND_COUNT)
 			print("baseline-detector: *** A_SEND_COUNT", A_SEND_COUNT)
-			if A_SEND_COUNT == 1: thread_rpm.start()
+			if A_SEND_COUNT == 1: 
+				thread_rpm.start()
+				print("baseline-detector: *** A_SEND_COUNT!", A_SEND_COUNT)
+				print("baseline-detector: *** A_SEND_COUNT!", A_SEND_COUNT)
+				print("baseline-detector: *** A_SEND_COUNT!", A_SEND_COUNT)
 	except Exception as e: print(e)
 	except:
 		print ("baseline-detector: *** Error get_data_svc()")
