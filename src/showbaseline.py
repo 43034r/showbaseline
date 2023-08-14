@@ -146,9 +146,9 @@ def get_data_svc():
 			print("baseline-detector: *** INFO - thread for ", element)
 			thread = threading.Thread(target=get_data, args=(element,))
 			threads.append(thread)
-			if A_SEND_COUNT == 1:
-				thread = threading.Thread(target=get_data_rpm, args=(element,))
-				threads.append(thread)
+#			if A_SEND_COUNT == 1:
+			thread = threading.Thread(target=get_data_rpm, args=(element,))
+			threads.append(thread)
 			thread.start()
 	except Exception as e: print(e)
 	except:
