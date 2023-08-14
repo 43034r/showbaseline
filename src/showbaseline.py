@@ -14,8 +14,8 @@ LOG_LEVEL:int = os.getenv('LOG_LEVEL', default=0)
 UPDATE_INTERVAL:int = os.getenv('UPDATE_INTERVAL', default=5) # in minutes
 A_SEND_MINMAX:int = os.getenv('A_SEND_MINMAX', default=0) # send min\max or only median
 A_SEND_COUNT:int = os.getenv('A_SEND_COUNT', default=1)  # send count or not 0 - not, 1 - yes.
+SVC_LISTSTR = SVC_LISTSTR.replace(" ", "")
 SVC_LIST = SVC_LISTSTR.split(',')
-
 
 def main_work():
 	try:
