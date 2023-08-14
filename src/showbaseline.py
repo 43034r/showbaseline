@@ -13,7 +13,7 @@ SVC_LISTSTR = os.getenv( 'SVC_LIST', default="SERVICE-F531D98ABDEE9F9D, SERVICE-
 LOG_LEVEL:int = os.getenv('LOG_LEVEL', default=0) 
 UPDATE_INTERVAL:int = os.getenv('UPDATE_INTERVAL', default=5) # in minutes
 A_SEND_MINMAX:int = os.getenv('A_SEND_MINMAX', default=0) # send min\max or only median
-A_SEND_COUNT:int = os.getenv('A_SEND_COUNT', default=1)  # send count or not 0 - not, 1 - yes.
+A_SEND_COUNT:int = os.getenv('A_SEND_COUNT', default=0)  # send count or not 0 - not, 1 - yes.
 SVC_LISTSTR = SVC_LISTSTR.replace(" ", "")
 SVC_LIST = SVC_LISTSTR.split(',')
 
@@ -112,22 +112,22 @@ def get_data_rpm(serviceid):
 	todo = json.loads(r.text)
 	print (todo["dataResult"]["dataPoints"][serviceid])
 	for tstring in todo["dataResult"]["dataPoints"][serviceid]:
-		threads2 = []
-		threads3 = []
-		threads4 = []
+		threads22 = []
+		threads33 = []
+		threads44 = []
 		try:
 			print("baseline-detector: *** INFO - thread for ", tstring)
-			thread2 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[1], serviceid, 'AVG', tstring[0],))
-			threads2.append(thread2)
+			thread22 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[1], serviceid, 'AVG', tstring[0],))
+			threads22.append(thread22)
 			if A_SEND_MINMAX == 1:
-				thread3 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[2], serviceid, 'MIN', tstring[0],))
-				threads3.append(thread3)
-				thread4 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[3], serviceid, 'MAX', tstring[0],))
-				threads4.append(thread4)
-			thread2.start()
+				thread33 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[2], serviceid, 'MIN', tstring[0],))
+				threads33.append(thread33)
+				thread44 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[3], serviceid, 'MAX', tstring[0],))
+				threads44.append(thread44)
+			thread22.start()
 			if A_SEND_MINMAX == 1:	
-				thread3.start()
-				thread4.start()
+				thread33.start()
+				thread44.start()
 		except Exception as e: 
 			print(e)
 			print ("baseline-detector: *** Error get_send_to_dyna() - ", serviceid)
