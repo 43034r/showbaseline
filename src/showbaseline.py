@@ -143,7 +143,6 @@ def get_data_svc():
 			print("baseline-detector: *** INFO - thread for ", element)
 			thread = threading.Thread(target=get_data, args=(element,))
 			threads.append(thread)
-			thread.start()
 			if A_SEND_COUNT == 1:
 				thread = threading.Thread(target=get_data_rpm, args=(element,))
 				threads.append(thread)
