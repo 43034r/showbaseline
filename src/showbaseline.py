@@ -148,7 +148,7 @@ def get_data_svc():
 			print("baseline-detector: *** A_SEND_COUNT", A_SEND_COUNT)
 			print("baseline-detector: *** A_SEND_COUNT", A_SEND_COUNT)
 			print("baseline-detector: *** A_SEND_COUNT", A_SEND_COUNT)
-			if A_SEND_COUNT == 1: 
+			if int(A_SEND_COUNT) == 1: 
 				thread_rpm.start()
 				print("baseline-detector: *** A_SEND_COUNT!", A_SEND_COUNT)
 				print("baseline-detector: *** A_SEND_COUNT!", A_SEND_COUNT)
