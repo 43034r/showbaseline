@@ -13,7 +13,7 @@ SVC_LISTSTR = os.getenv( 'SVC_LIST', "SERVICE-F531D98ABDEE9F9D, SERVICE-D2E55F5D
 LOG_LEVEL:int = os.getenv('LOG_LEVEL', 0) 
 UPDATE_INTERVAL:int = os.getenv('UPDATE_INTERVAL', 5) # in minutes
 A_SEND_MINMAX:int = os.getenv('A_SEND_MINMAX', 0) # send min\max or only median
-A_SEND_COUNT:int = os.getenv('A_SEND_COUNT', 0)  # send count or not 0 - not, 1 - yes.
+A_SEND_COUNT:int = os.getenv('A_SEND_COUNT', 1)  # send count or not 0 - not, 1 - yes.
 SVC_LIST = SVC_LISTSTR.split(',')
 
 
@@ -52,9 +52,9 @@ def send_to_dyna(timeseriesId, value, svc_to_send, agr, ttime):
 	m = r.text
 	if LOG_LEVEL == 0: 
 		print ("baseline-detector *** DEBUG Response code -->  "  , end='')
-		print(r);
+		print(r)
 		print ("baseline-detector *** DEBUG Response -->  ", end='')
-		print(m);
+		print(m)
 
 def get_data(serviceid):
 	print ("baseline-detector *** DEBUG start get_data for --> ", serviceid)
