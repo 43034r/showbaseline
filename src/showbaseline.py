@@ -44,13 +44,13 @@ def send_to_dyna(timeseriesId, value, svc_to_send, agr, ttime):
 			}
 	
 	if (value < 0): raise ValueError(f"baseline-detector *** Error {value} < 0")
-	if LOG_LEVEL == 0: 
+	if int(LOG_LEVEL) == 0: 
 		print ("baseline-detector *** DEBUG start PayLoad -->  ")
 		print (payload)
 		print ("baseline-detector *** DEBUG stop PayLoad -->  ")
 	r = requests.post(DT_API_URL + '/entity/infrastructure/custom/baseline-detector?Api-Token=' + DT_API_TOKEN, json=payload, verify=False);
 	m = r.text
-	if LOG_LEVEL == 0: 
+	if int(LOG_LEVEL) == 0: 
 		print ("baseline-detector *** DEBUG Response code -->  "  , end='')
 		print(r)
 		print ("baseline-detector *** DEBUG Response -->  ", end='')
@@ -64,7 +64,7 @@ def get_data(serviceid):
 	secondtime=int(time.time() + 1800)
 	r = requests.get(DT_API_URL + '/timeseries/com.dynatrace.builtin%3Aservice.responsetime?includeData=true&aggregationType=MEDIAN&startTimestamp=' + str(firsttime) + '&endTimestamp=' + str(secondtime) + '&predict=true&relativeTime=30mins&entity=' + serviceid + '&Api-Token=' + DT_API_TOKEN, verify=False);
 	m = r.text
-	if LOG_LEVEL == 0:
+	if int(LOG_LEVEL) == 0:
 		print ("baseline-detector *** DEBUG Response code -->  "  , end='')
 		print(r)
 		print ("baseline-detector *** DEBUG response -->  ", end='')
@@ -78,13 +78,13 @@ def get_data(serviceid):
 			print("baseline-detector: *** INFO - thread for ", tstring)
 			thread2 = threading.Thread(target=send_to_dyna, args=('custom:service.resp0nsetime.baseline', tstring[1], serviceid, 'MED', tstring[0],))
 			threads3.append(thread2)
-			if A_SEND_MINMAX == 1:
+			if int(A_SEND_MINMAX) == 1:
 				thread3 = threading.Thread(target=send_to_dyna, args=('custom:service.resp0nsetime.baseline', tstring[2], serviceid, 'MIN', tstring[0],))
 				threads3.append(thread3)
 				thread4 = threading.Thread(target=send_to_dyna, args=('custom:service.resp0nsetime.baseline', tstring[3], serviceid, 'MAX', tstring[0],))
 				threads3.append(thread4)
 			thread2.start()
-			if A_SEND_MINMAX == 1:	
+			if int(A_SEND_MINMAX) == 1:	
 				thread3.start()
 				thread4.start()
 		except Exception as e: 
@@ -117,13 +117,13 @@ def get_data_rpm(serviceid):
 			print("baseline-detector: *** INFO - thread for ", tstring)
 			thread2 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[1], serviceid, 'AVG', tstring[0],))
 			threads2.append(thread2)
-			if A_SEND_MINMAX == 1:
+			if int(A_SEND_MINMAX) == 1:
 				thread3 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[2], serviceid, 'MIN', tstring[0],))
 				threads2.append(thread3)
 				thread4 = threading.Thread(target=send_to_dyna, args=('custom:service.requests.baseline', tstring[3], serviceid, 'MAX', tstring[0],))
 				threads2.append(thread4)
 			thread2.start()
-			if A_SEND_MINMAX == 1:	
+			if int(A_SEND_MINMAX) == 1:	
 				thread3.start()
 				thread4.start()
 		except Exception as e: 
@@ -143,16 +143,10 @@ def get_data_svc():
 			thread = threading.Thread(target=get_data, args=(element,))
 			threads.append(thread)
 			thread.start()
-			thread_rpm = threading.Thread(target=get_data_rpm, args=(element,))
-			threads.append(thread_rpm)
-			print("baseline-detector: *** A_SEND_COUNT", A_SEND_COUNT)
-			print("baseline-detector: *** A_SEND_COUNT", A_SEND_COUNT)
-			print("baseline-detector: *** A_SEND_COUNT", A_SEND_COUNT)
 			if int(A_SEND_COUNT) == 1: 
+				thread_rpm = threading.Thread(target=get_data_rpm, args=(element,))
+				threads.append(thread_rpm)
 				thread_rpm.start()
-				print("baseline-detector: *** A_SEND_COUNT!", A_SEND_COUNT)
-				print("baseline-detector: *** A_SEND_COUNT!", A_SEND_COUNT)
-				print("baseline-detector: *** A_SEND_COUNT!", A_SEND_COUNT)
 	except Exception as e: print(e)
 	except:
 		print ("baseline-detector: *** Error get_data_svc()")
