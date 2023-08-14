@@ -16,6 +16,7 @@ A_SEND_MINMAX:int = os.getenv('A_SEND_MINMAX', default=0) # send min\max or only
 A_SEND_COUNT:int = os.getenv('A_SEND_COUNT', default=1)  # send count or not 0 - not, 1 - yes.
 SVC_LIST = SVC_LISTSTR.split(',')
 
+print (DT_API_URL, LOG_LEVEL, A_SEND_MINMAX, A_SEND_COUNT)
 
 def main_work():
 	try:
