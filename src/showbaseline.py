@@ -9,14 +9,13 @@ import threading
 
 DT_API_TOKEN = os.getenv('DT_API_TOKEN', default='dt0c01.X.X')
 DT_API_URL = os.getenv('DT_API_URL', default='https://provide-API-URL-WITH-END/api/v1')
-SVC_LISTSTR = os.getenv( 'SVC_LIST', default="SERVICE-F531D98ABDEE9F9D, SERVICE-D2E55F5D48FF41A1")
+SVC_LISTSTR = os.getenv( 'SVC_LIST', default="SERVICE-F531D98ABDEE9F9D, SERVICE-2F612B9CB96EF167")
 LOG_LEVEL:int = os.getenv('LOG_LEVEL', default=0) 
 UPDATE_INTERVAL:int = os.getenv('UPDATE_INTERVAL', default=5) # in minutes
 A_SEND_MINMAX:int = os.getenv('A_SEND_MINMAX', default=0) # send min\max or only median
 A_SEND_COUNT:int = os.getenv('A_SEND_COUNT', default=1)  # send count or not 0 - not, 1 - yes.
 SVC_LIST = SVC_LISTSTR.split(',')
 
-print (DT_API_URL, LOG_LEVEL, A_SEND_MINMAX, A_SEND_COUNT)
 
 def main_work():
 	try:
