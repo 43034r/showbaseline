@@ -9,6 +9,8 @@ How it is look likes on dashboard:
 ![Count looks](https://github.com/43034r/showbaseline/raw/main/img/response.JPG)
 How look likes prediction of load (count) of the service
 ![Count looks](https://github.com/43034r/showbaseline/raw/main/img/count.JPG)
+Prediction - example usecase
+![Count looks](https://github.com/43034r/showbaseline/raw/main/img/example.JPG)
 
 This python script use predict=true More - https://www.dynatrace.com/news/blog/how-to-ask-your-monitoring-system-about-the-future/
 
