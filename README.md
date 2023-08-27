@@ -4,7 +4,9 @@ This is small script \ container \ POD will get BaseLine from Dynatrace and show
 Important! For work wait an hour after custom metric creation 
 
 plans:
+
 (-) reduce network overhead (1 request instead five small)
+
 (-) add metric for failure rate
 
 default it is look likes:
