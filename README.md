@@ -98,6 +98,4 @@ spec:
         name: showbaseline
 ```
 
-
-
 ![Default looks](https://github.com/43034r/showbaseline/raw/main/img/ex1.JPG)
