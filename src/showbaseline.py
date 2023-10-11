@@ -94,7 +94,6 @@ def get_data(serviceid):
 			print ("baseline-detector: *** Error get_send_to_dyna() - ", serviceid)
 		print("baseline-detector: *** INFO - stop get_data_svc")
 
-
 def get_data_rpm(serviceid):
 	global A_SEND_MINMAX
 	print ("baseline-detector *** DEBUG start get_data_rpm for --> ", serviceid)
@@ -151,7 +150,6 @@ def get_data_svc():
 	except:
 		print ("baseline-detector: *** Error get_data_svc()")
 	print("baseline-detector: *** INFO - stop get_data_svc")
-
 
 print ("baseline-detector: *** INFO -- starting...")
 
