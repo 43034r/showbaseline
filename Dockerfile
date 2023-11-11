@@ -1,5 +1,5 @@
 FROM python:3.10.0-alpine
-RUN useradd -ms /bin/bash appuser
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 USER appuser
 ADD src/showbaseline.py /
 RUN pip install schedule
